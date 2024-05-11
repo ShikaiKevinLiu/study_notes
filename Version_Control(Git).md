@@ -1,4 +1,11 @@
-# Purpose
+---
+title: "Version Control"
+date: 2022-08-12T13:04:43+08:00
+tags: ["content creation"]
+summary: "A brief Introduction to Version Control"
+---
+
+## Purpose
 
 Modern Version Control Systems (VCS) let you easily (and often automatically) answer questions like:
 
@@ -7,9 +14,9 @@ Modern Version Control Systems (VCS) let you easily (and often automatically) an
 - When was this particular line of this particular file edited? By whom? Why was it edited?
 - Over the last 1000 revisions, when/why did a particular unit test stop working?
 
-# Git's data model
+## Git's data model
 
-## snapshot
+### snapshot
 
 Git models the history of a collection of files and folders within some top-level directory as a seiries of snapshots. 
 
@@ -35,7 +42,7 @@ Below is an example of a tree/snapshot:<a name="anchor1"></a>
 
 This top-level tree contains two elements, a tree “foo” (that itself contains one element, a blob “bar.txt”), and a blob “baz.txt”.
 
-## Modeling history: relating snapshots
+### Modeling history: relating snapshots
 
 In Git, a history is a **directed acyclic graph** (DAG) of snapshots.
 
@@ -61,7 +68,7 @@ o <-- o <-- o <-- o <---- **o**
 
 Commits in Git are immutable. This doesn’t mean that mistakes can’t be corrected, however; it’s just that “edits” to the commit history are actually creating entirely new commits, and references (see below) are updated to point to the new ones.
 
-## Data model, as pseudocode
+### Data model, as pseudocode
 
 ```
 // a file is a bunch of bytes
@@ -81,7 +88,7 @@ type commit = struct {
 
 
 
-## Objects and content-addressing
+### Objects and content-addressing
 
 An object is a blob, tree, or commit:
 
@@ -119,7 +126,7 @@ git is wonderful
 
 
 
-## References
+### References
 
 Now, all snapshots can be identified by their SHA-1 hashes. That’s inconvenient, because humans aren’t good at remembering strings of 40 hexadecimal characters.
 
@@ -145,7 +152,7 @@ With this, Git can use human-readable names like “master” to refer to a part
 
 One detail is that we often want a notion of “where we currently are” in the history, so that when we take a new snapshot, we know what it is relative to (how we set the `parents` field of the commit). In Git, that “where we currently are” is a special reference called “HEAD”.
 
-## Repositories
+### Repositories
 
 Finally, we can define what (roughly) is a Git *repository*: it is the data `objects` and `references`.
 
@@ -155,9 +162,9 @@ Whenever you’re typing in any command, think about what manipulation the comma
 
 
 
-# Staging area
+## Staging area
 
-## Motivation:
+### Motivation:
 
 For example, imagine a scenario where you’ve implemented two separate features, and you want to create two separate commits, where the first introduces the first feature, and the next introduces the second(and the first) feature. 
 
@@ -170,9 +177,9 @@ Git accommodates such scenarios by allowing you to specify which modifications s
 
 
 
-# Git command-line interface(CLI)
+## Git command-line interface(CLI)
 
-## Basics
+### Basics
 
 - `git help <command>`: get hero for a git command
 - `git init`: creates a new git repo, with data stored in the `.git` directory
@@ -187,7 +194,7 @@ Git accommodates such scenarios by allowing you to specify which modifications s
 - `git diff <revision> <filename>`: shows differences in a file between snapshots
 - `git checkout <revision>`: updates HEAD and current branch
 
-## Branching and merging
+### Branching and merging
 
 - `git branch`: shows branches
 - `git branch <name>`: creates a branch
@@ -196,7 +203,7 @@ Git accommodates such scenarios by allowing you to specify which modifications s
 - `git mergetool`: use a fancy tool to help resolve merge conflicts
 - `git rebase`: rebase set of patches onto a new base
 
-### **Merge Conflict**: 
+#### **Merge Conflict**: 
 
 In the below branching and merging
 
@@ -208,27 +215,27 @@ o(org) <--- o(feature 1) <--- o
 ```
 
 ```python
-# org file
+## org file
 Line 1: Hello World
 Line 2: This is an example file.
 ```
 
 ```python
-# feature 1
+## feature 1
 Line 1: Hello World
 Line 2: This is an example file.
 Line 3: Adding a line for clarity.
 ```
 
 ```python
-# feature 2
+## feature 2
 Line 1: Hello World
 Line 2: This is a modified example file.
 ```
 
 If comparing to the original file, the modification are on different lines, then merging has no conflict, but imagine, two features modified a same line(e.g., both writing new line 3), there will be conflict and git will let developer to manually resolve it.
 
-## Remote
+### Remote
 
 - `git remote`: list remotes
 - `git remote add <name> <url>`: add a remote
@@ -238,7 +245,7 @@ If comparing to the original file, the modification are on different lines, then
 - `git pull`: same as `git fetch; git merge`
 - `git clone`: download repository from remote
 
-## OThers
+### OThers
 
 - `git config`: Git is [highly customizable](https://git-scm.com/docs/git-config)
 - `git clone --depth=1`: shallow clone, without entire version history
@@ -251,7 +258,7 @@ If comparing to the original file, the modification are on different lines, then
 
 
 
-# TODO and future learning plan:
+## TODO and future learning plan:
 
 - **Workflows**: we taught you the data model, plus some basic commands; we didn’t tell you what practices to follow when working on big projects (and there are [many](https://nvie.com/posts/a-successful-git-branching-model/) [different](https://www.endoflineblog.com/gitflow-considered-harmful) [approaches](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)).
 - **GitHub**: Git is not GitHub. GitHub has a specific way of contributing code to other projects, called [pull requests](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
@@ -259,7 +266,7 @@ If comparing to the original file, the modification are on different lines, then
 
 
 
-# References:
+## References:
 
 1. Youtube Videos: https://www.youtube.com/watch?v=2sjqTHE0zok&t=48s
 2. The missing semester: https://missing.csail.mit.edu/2020/version-control/
